@@ -1,48 +1,28 @@
 const mongoose = require("mongoose");
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
   },
   email: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
   },
   password: {
     type: String,
-    require: true,
+    required: true,
   },
   age: {
     type: Number,
-    require: true,
+    required: true,
   },
-  favourites: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Book",
-    },
-  ],
-  favoriteGenres: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Genre",
-    },
-  ],
-  wantToRead: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Book",
-    },
-  ],
-  completed: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Book",
-    },
-  ],
+  favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Book" }],
+  favoriteGenres: [{ type: mongoose.Schema.Types.ObjectId, ref: "Genre" }],
+  wantToRead: [{ type: mongoose.Schema.Types.ObjectId, ref: "Book" }],
+  completed: [{ type: mongoose.Schema.Types.ObjectId, ref: "Book" }],
   createdAt: {
     type: Date,
     default: Date.now,

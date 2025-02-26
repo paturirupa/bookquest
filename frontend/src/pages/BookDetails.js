@@ -12,7 +12,7 @@ export default function BookDetails() {
     return <div>No book details found.</div>;
   }
 
-  const bookImage = book.image || book.cover;
+  const bookImage = book.imageUrl || book.cover;
 
   return (
     <div style={{ backgroundColor: "#F4F1E1", minHeight: "100vh" }}>

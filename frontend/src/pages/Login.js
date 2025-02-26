@@ -7,107 +7,27 @@ export default function Login() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const users = [
-    { username: "supraja", password: "sup@12345" },
-    { username: "sangeetha", password: "Sangee@135" },
-    { username: "siri", password: "Siri@31" },
-    { username: "gayathri", password: "Gayathri@78" },
-    { username: "Rupa", password: "Paturi00!" },
-    { username: "sanjana", password: "sanju@123" },
-  ];
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = users.find(
-      (user) => user.username === username && user.password === password
-    );
+    try {
+      const response = await fetch("http://localhost:5000/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-    if (user) {
-      setError("");
-      navigate("/home");
-    } else {
-      setError("Invalid username or password.");
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem("token", data.token);
+        navigate("/home");
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      setError("Error connecting to the server.");
     }
-  };
-
-  const containerStyle = {
-    position: "relative",
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "20px",
-    boxSizing: "border-box",
-    overflow: "hidden",
-    backgroundImage:
-      'url("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg")',
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundColor: "rgba(255, 0, 255, 0.1)",
-  };
-
-  const loginBoxStyle = {
-    backgroundColor: "rgba(255, 255, 255, 0.85)",
-    padding: "40px",
-    borderRadius: "12px",
-    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-    width: "100%",
-    maxWidth: "400px",
-    textAlign: "center",
-  };
-
-  const headingStyle = {
-    fontSize: "28px",
-    marginBottom: "20px",
-    fontWeight: "bold",
-    color: "#333",
-  };
-
-  const errorStyle = {
-    color: "red",
-    marginBottom: "20px",
-    fontSize: "16px",
-  };
-
-  const inputGroupStyle = {
-    marginBottom: "20px",
-  };
-
-  const labelStyle = {
-    display: "block",
-    fontWeight: "bold",
-    marginBottom: "8px",
-    fontSize: "14px",
-    textAlign: "left",
-  };
-
-  const inputStyle = {
-    width: "100%",
-    padding: "12px 14px",
-    borderRadius: "8px",
-    border: "1px solid #ddd",
-    fontSize: "16px",
-    backgroundColor: "transparent",
-    color: "#000",
-  };
-
-  const buttonStyle = {
-    backgroundColor: "#007bff",
-    color: "#fff",
-    padding: "12px",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    width: "100%",
-    fontSize: "16px",
-    fontWeight: "bold",
-    transition: "background-color 0.3s ease",
-  };
-
-  const linkStyle = {
-    marginTop: "20px",
-    fontSize: "14px",
-    color: "#007bff",
   };
 
   return (
@@ -153,3 +73,83 @@ export default function Login() {
     </div>
   );
 }
+
+const containerStyle = {
+  position: "relative",
+  height: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: "20px",
+  boxSizing: "border-box",
+  overflow: "hidden",
+  backgroundImage:
+    'url("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg")',
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundColor: "rgba(255, 0, 255, 0.1)",
+};
+
+const loginBoxStyle = {
+  backgroundColor: "rgba(255, 255, 255, 0.85)",
+  padding: "40px",
+  borderRadius: "12px",
+  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+  width: "100%",
+  maxWidth: "400px",
+  textAlign: "center",
+};
+
+const headingStyle = {
+  fontSize: "28px",
+  marginBottom: "20px",
+  fontWeight: "bold",
+  color: "#333",
+};
+
+const errorStyle = {
+  color: "red",
+  marginBottom: "20px",
+  fontSize: "16px",
+};
+
+const inputGroupStyle = {
+  marginBottom: "20px",
+};
+
+const labelStyle = {
+  display: "block",
+  fontWeight: "bold",
+  marginBottom: "8px",
+  fontSize: "14px",
+  textAlign: "left",
+};
+
+const inputStyle = {
+  width: "100%",
+  padding: "12px 14px",
+  borderRadius: "8px",
+  border: "1px solid #ddd",
+  fontSize: "16px",
+  backgroundColor: "transparent",
+  color: "#000",
+};
+
+const buttonStyle = {
+  backgroundColor: "#007bff",
+  color: "#fff",
+  padding: "12px",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+  width: "100%",
+  fontSize: "16px",
+  fontWeight: "bold",
+  transition: "background-color 0.3s ease",
+};
+
+const linkStyle = {
+  marginTop: "20px",
+  fontSize: "14px",
+  color: "#007bff",
+};

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
-  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [dob, setDob] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -10,16 +10,39 @@ export default function Register() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const validateEmail = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
   const validatePassword = (password) => {
     const passwordPattern =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
     return passwordPattern.test(password);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const calculateAge = (dob) => {
+    const birthDate = new Date(dob);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
 
-    if (username.length < 8) {
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const age = calculateAge(dob);
+
+    if (!validateEmail(email)) {
+      setError("Invalid email format.");
+    } else if (username.length < 8) {
       setError("Username must be at least 8 characters.");
     } else if (!validatePassword(password)) {
       setError(
@@ -29,33 +52,59 @@ export default function Register() {
       setError("Password and Confirm Password do not match.");
     } else {
       setError("");
-      navigate("/login");
+
+      const userData = {
+        username,
+        email,
+        password,
+        age,
+      };
+
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/users/register",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+          }
+        );
+
+        if (response.ok) {
+          navigate("/login");
+        } else {
+          setError("Registration failed. Please try again.");
+        }
+      } catch (error) {
+        setError("Error connecting to the server.");
+      }
     }
   };
 
   return (
     <div style={styles.container}>
-      {/* Overlay for 50% transparency */}
       <div style={styles.overlay}></div>
       <div style={styles.registerBox}>
         <h2>Register for BookQuest</h2>
         {error && <p style={styles.error}>{error}</p>}
         <form onSubmit={handleSubmit}>
           <div style={styles.inputGroup}>
-            <label htmlFor="fullName" style={styles.label}>
-              Full Name
+            <label htmlFor="email" style={styles.label}>
+              Email
             </label>
             <input
               type="text"
-              id="fullName"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               style={styles.input}
               required
             />
           </div>
           <div style={styles.inputGroup}>
-            <label htmlFor="dob" style={styles.label}>//age
+            <label htmlFor="dob" style={styles.label}>
               Date of Birth
             </label>
             <input
