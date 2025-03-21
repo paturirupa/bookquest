@@ -98,7 +98,8 @@ export default function Home() {
           <div className="book-card-grid">
             {filteredBooks.map((book) => (
               <BookCard
-                key={book.id}
+              key={book._id} // Ensure it uses the correct ID
+              id={book._id} 
                 title={book.title}
                 author={book.author}
                 description={book.description}

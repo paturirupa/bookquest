@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function BookCard({
+  id,
   title,
   author,
   description,
@@ -23,6 +24,7 @@ export default function BookCard({
     navigate("/book-details", {
       state: {
         book: {
+          id,
           title,
           author,
           description,

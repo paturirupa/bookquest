@@ -1,107 +1,163 @@
+/* General Page Styles */
+.book-details-page {
+  background-color: #f4f1e1;
+  min-height: 100vh;
+  padding: 20px;
+}
+
 .book-details-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  padding: 20px;
-  background-color: #FFFDD0;
-  min-height: 100vh;
-}
-
-.book-details-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   max-width: 1200px;
-  margin: 50px auto;
+  margin: 0 auto;
+  gap: 30px;
+  padding: 20px;
 }
 
-.book-details {
-  display: flex;
-  flex-direction: row;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+/* Book Image Section */
+.book-image-container {
+  flex: 0 1 30%;
+  text-align: center;
+}
+
+.book-image {
   width: 100%;
-  max-width: 1200px;
-}
-
-.book-details-img {
-  width: 300px;
-  height: 400px;
-  object-fit: cover;
+  max-width: 300px;
   border-radius: 10px;
-  margin: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.book-details-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 20px;
-  flex-grow: 1;
+.want-to-read-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #4c6b3c;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.want-to-read-btn:hover {
+  background-color: #3a5430;
+}
+
+/* Book Info Section */
+.book-info-container {
+  flex: 1;
   max-width: 600px;
 }
 
-.book-details h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+.book-title {
+  font-size: 2rem;
+  font-weight: bold;
   color: #333;
 }
 
-.book-details h3 {
-  font-size: 1.5rem;
-  color: #555;
-  margin-bottom: 20px;
+.book-author {
+  font-size: 1.3rem;
+  color: #666;
 }
 
-.book-details p {
+.book-description {
   font-size: 1rem;
-  line-height: 1.5;
-  color: #777;
-  margin-bottom: 15px;
+  line-height: 1.6;
+  color: #444;
 }
 
-.read-now-btn {
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
+.rating-badge {
+  background-color: #ffdd57;
+  color: black;
+  font-weight: bold;
+  padding: 5px 10px;
   border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  display: inline-block;
 }
 
-.read-now-btn:hover {
-  background-color: #0056b3;
-}
-
+/* Reviews Section */
 .reviews-container {
-  width: 100%;
-  max-width: 1200px;
-  margin-top: 30px;
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: #f9f8f3;
   padding: 20px;
-  background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .reviews-container h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-.review-card {
-  padding: 15px;
+  font-size: 1.8rem;
   margin-bottom: 15px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.review-card p {
-  margin: 5px 0;
+.reviews-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.review {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+}
+
+.review-rating {
+  font-weight: bold;
+  color: #ff8800;
+}
+
+.delete-btn {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.delete-btn:hover {
+  background-color: #c9302c;
+}
+
+/* Add Review Section */
+.add-review-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.add-review-container input,
+.add-review-container textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   font-size: 1rem;
-  color: #555;
+}
+
+.add-review-container textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.add-review-btn {
+  background-color: #4c6b3c;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.add-review-btn:hover {
+  background-color: #3a5430;
 }

@@ -42,7 +42,7 @@ const BookSchema = new mongoose.Schema({
   reviews: [
     {
       user: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "User",
         required: true,
       },
